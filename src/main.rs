@@ -14,9 +14,9 @@ struct Cli {
 enum Command {
     On {
         // future date to calculate leave for
-        on: chrono::NaiveDate,
+        date: chrono::NaiveDate,
         // path to configuration file (create one with ```leavebalance config`)
-        configuration: std::path::PathBuf,
+        config_file: std::path::PathBuf,
         // current leave balance in hours
         current_leave_balance: Option<f64>,
         // next pay day
@@ -38,8 +38,8 @@ fn main() {
 
     match arguments.command {
         Command::On {
-            on,
-            configuration,
+            date: on,
+            config_file: configuration,
             current_leave_balance,
             next_pay_day,
             balance_warn_threshold,
