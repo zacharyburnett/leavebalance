@@ -7,7 +7,6 @@ extrapolate future leave balances to plan usage of leave
 Use `leavebalance on <DATE> <CONFIG_FILE> [CURRENT_LEAVE_BALANCE] [NEXT_PAY_DAY] [BALANCE_WARN_THRESHOLD]` to calculate leave balance at some future date, using a configuration file:
 ```shell
 leavebalance on 2023-09-04 examples/example_1.yaml
-
 ```
 ```
 your leave balance will be 56 hours (7 working days) on 2023-09-04
@@ -23,7 +22,6 @@ your leave balance will be 87 hours (10 working days) on 2023-08-30
 
 The configuration file looks like this:
 ```yaml
-
 policy:
   working_hours: [08:00:00, 16:00:00]
   working_days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
