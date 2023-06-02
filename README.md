@@ -40,6 +40,23 @@ planned_leave:
 You can also quickly generate a configuration file with `leavebalance config <FILENAME> <HOURS_ACCRUED_PER_PAY_PERIOD>`:
 ```shell
 leavebalance config ./myconfig.yaml 5.3
+```
+```yaml
+policy:
+  working_hours:
+  - 09:00:00
+  - 17:00:00
+  working_days:
+  - Mon
+  - Tue
+  - Wed
+  - Thu
+  - Fri
+  days_in_pay_period: 14
+  hours_accrued_per_pay_period: 5.3
+planned_leave: []
+```
+```shell
 leavebalance on 2023-06-30 ./myconfig.yaml 10.5
 ```
 ```
