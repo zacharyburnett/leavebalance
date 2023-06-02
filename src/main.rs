@@ -29,7 +29,6 @@ enum Command {
     Config {
         // path to configuration file to write
         filename: std::path::PathBuf,
-        hours_accrued_per_pay_period: f64,
     },
 }
 
@@ -63,18 +62,14 @@ fn main() {
             );
 
             println!(
-                "your leave balance will be {:} hours ({:} working days) on {:}",
-                balance.num_hours(),
-                balance.num_hours() / working_time.num_hours(),
+                "your leave balance will be {:.2} hours ({:.2} working days) on {:}",
+                balance.num_seconds() as f64 / 3600.0,
+                balance.num_seconds() as f64 / working_time.num_seconds() as f64,
                 on,
             );
         }
-        Command::Config {
-            hours_accrued_per_pay_period,
-            filename,
-        } => {
-            let mut configuration = configuration::Configuration::default();
-            configuration.policy.hours_accrued_per_pay_period = hours_accrued_per_pay_period;
+        Command::Config { filename } => {
+            let configuration = configuration::Configuration::default();
 
             let file = std::fs::File::create(filename).unwrap();
             match serde_yaml::to_writer(file, &configuration) {

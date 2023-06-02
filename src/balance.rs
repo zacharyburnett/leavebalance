@@ -63,9 +63,9 @@ pub fn balance_on(
         println!(
             "accrued {:} hours ({:} working days) and used {:} hours ({:} working days)",
             total_accrued,
-            total_accrued / working_time.num_hours() as f64,
+            total_accrued / working_time.num_seconds() as f64 / 3600.0,
             total_used,
-            total_used / working_time.num_hours() as f64,
+            total_used / working_time.num_seconds() as f64 / 3600.0,
         );
     }
 

@@ -28,7 +28,7 @@ impl Default for LeavePolicy {
                 chrono::Weekday::Fri,
             ],
             days_in_pay_period: 14,
-            hours_accrued_per_pay_period: 8.0,
+            hours_accrued_per_pay_period: 0.0,
         }
     }
 }

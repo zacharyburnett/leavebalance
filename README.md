@@ -9,14 +9,14 @@ Use `leavebalance on <DATE> <CONFIG_FILE> [CURRENT_LEAVE_BALANCE] [NEXT_PAY_DAY]
 leavebalance on 2023-09-04 examples/example_1.yaml
 ```
 ```
-your leave balance will be 56 hours (7 working days) on 2023-09-04
+your leave balance will be 56.00 hours (7.00 working days) on 2023-09-04
 ```
 
 ```shell
 leavebalance on 2023-12-01 examples/example_2.yaml 95.7688
 ```
 ```
-your leave balance will be 87 hours (10 working days) on 2023-08-30
+your leave balance will be 135.77 hours (16.97 working days) on 2023-12-01
 
 ```
 
@@ -37,9 +37,9 @@ planned_leave:
     - [2024-04-22, 2024-04-26]
 ```
 
-You can also quickly generate a configuration file with `leavebalance config <FILENAME> <HOURS_ACCRUED_PER_PAY_PERIOD>`:
+You can also quickly generate a default configuration file with `leavebalance config <FILENAME> <HOURS_ACCRUED_PER_PAY_PERIOD>`:
 ```shell
-leavebalance config ./myconfig.yaml 5.3
+leavebalance config ./myconfig.yaml
 ```
 ```yaml
 policy:
@@ -53,12 +53,12 @@ policy:
   - Thu
   - Fri
   days_in_pay_period: 14
-  hours_accrued_per_pay_period: 5.3
+  hours_accrued_per_pay_period: 0.0
 planned_leave: []
 ```
 ```shell
 leavebalance on 2023-06-30 ./myconfig.yaml 10.5
 ```
 ```
-your leave balance will be 26 hours (3 working days) on 2023-06-30
+your leave balance will be 10.50 hours (1.31 working days) on 2023-06-30
 ```
