@@ -25,7 +25,10 @@ pub fn balance_on(
                 let accrued = policy.hours_accrued_per_pay_period;
 
                 if verbose {
-                    println!("{:} - {:} hours accrued", future_date, accrued);
+                    println!(
+                        "{:} - {:.2} hours accrued; balance is now {:.2} hours",
+                        future_date, accrued, balance
+                    );
                     total_accrued += accrued;
                 }
 
@@ -41,14 +44,17 @@ pub fn balance_on(
                             balance -= used;
 
                             if verbose {
-                                println!("{:} - {:} hours used ", future_date, used);
+                                println!(
+                                    "{:} - {:.2} hours used; balance is now {:.2} hours",
+                                    future_date, used, balance
+                                );
                                 total_used += used;
                             }
 
                             if balance < balance_warn_threshold as f64 {
                                 eprintln!(
-                                    "{:} - your planned leave on {:} would deplete your leave balance to {:} hours!",
-                                    leave_date, leave_date, balance
+                                    "your planned leave on {:} would deplete your leave balance to {:} hours!",
+                                    leave_date, balance
                                 );
                             }
                             break;
@@ -61,11 +67,11 @@ pub fn balance_on(
 
     if verbose {
         println!(
-            "accrued {:} hours ({:} working days) and used {:} hours ({:} working days)",
+            "accrued {:.2} hours ({:.2} working days) and used {:.2} hours ({:.2} working days)",
             total_accrued,
-            total_accrued / working_time.num_seconds() as f64 / 3600.0,
+            total_accrued / (working_time.num_seconds() as f64 / 3600.0),
             total_used,
-            total_used / working_time.num_seconds() as f64 / 3600.0,
+            total_used / (working_time.num_seconds() as f64 / 3600.0),
         );
     }
 
