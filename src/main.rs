@@ -62,7 +62,7 @@ fn main() {
             );
 
             println!(
-                "your leave balance will be {:.2} hours ({:.2} working days) on {:}",
+                "your leave balance will be {:.1}h ({:.1} working days) on {:}",
                 balance.num_seconds() as f64 / 3600.0,
                 balance.num_seconds() as f64 / working_time.num_seconds() as f64,
                 on,

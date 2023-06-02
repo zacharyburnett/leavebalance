@@ -20,43 +20,35 @@ your leave balance will be 135.77 hours (16.97 working days) on 2023-12-01
 If your starting balance is too low, a warning is printed to stderr:
 
 ```shell
-leavebalance on 2023-12-01 examples/example_2.yaml 20
+leavebalance on 2023-08-30 examples/example_2.yaml 20
 ```
 ```
 your planned leave on 2023-08-10 would deplete your leave balance to -4 hours!
-your leave balance will be 60.00 hours (7.50 working days) on 2023-12-01
+your leave balance will be 12.00 hours (1.50 working days) on 2023-08-30
 ```
 You can also use `--verbose` to diagnose individual usages and accruals by date:
 ```shell
-leavebalance on 2023-12-01 examples/example_2.yaml 20 --verbose
+leavebalance on 2023-08-30 examples/example_2.yaml 20 --verbose
 ```
 ```
 2023-06-02 - 8.00 hours accrued; balance is now 20.00 hours
 2023-06-16 - 8.00 hours accrued; balance is now 28.00 hours
-2023-06-28 - 8.00 hours used; balance is now 28.00 hours
-2023-06-29 - 8.00 hours used; balance is now 20.00 hours
+2023-06-28 - 8.00 hours used;    balance is now 28.00 hours
+2023-06-29 - 8.00 hours used;    balance is now 20.00 hours
 2023-06-30 - 8.00 hours accrued; balance is now 20.00 hours
-2023-06-30 - 8.00 hours used; balance is now 20.00 hours
-2023-07-03 - 8.00 hours used; balance is now 12.00 hours
+2023-06-30 - 8.00 hours used;    balance is now 20.00 hours
+2023-07-03 - 8.00 hours used;    balance is now 12.00 hours
 2023-07-14 - 8.00 hours accrued; balance is now 12.00 hours
 2023-07-28 - 8.00 hours accrued; balance is now 20.00 hours
-2023-08-07 - 8.00 hours used; balance is now 20.00 hours
-2023-08-08 - 8.00 hours used; balance is now 12.00 hours
-2023-08-09 - 8.00 hours used; balance is now 4.00 hours
-2023-08-10 - 8.00 hours used; balance is now -4.00 hours
+2023-08-07 - 8.00 hours used;    balance is now 20.00 hours
+2023-08-08 - 8.00 hours used;    balance is now 12.00 hours
+2023-08-09 - 8.00 hours used;    balance is now 4.00 hours
+2023-08-10 - 8.00 hours used;    balance is now -4.00 hours
 your planned leave on 2023-08-10 would deplete your leave balance to -4 hours!
 2023-08-11 - 8.00 hours accrued; balance is now -4.00 hours
 2023-08-25 - 8.00 hours accrued; balance is now 4.00 hours
-2023-09-08 - 8.00 hours accrued; balance is now 12.00 hours
-2023-09-22 - 8.00 hours accrued; balance is now 20.00 hours
-2023-10-06 - 8.00 hours accrued; balance is now 28.00 hours
-2023-10-20 - 8.00 hours accrued; balance is now 36.00 hours
-2023-11-03 - 8.00 hours accrued; balance is now 44.00 hours
-2023-11-17 - 8.00 hours accrued; balance is now 52.00 hours
-2023-12-01 - 8.00 hours accrued; balance is now 60.00 hours
-2023-12-01 - 8.00 hours used; balance is now 60.00 hours
-accrued 112.00 hours (14.00 working days) and used 72.00 hours (9.00 working days)
-your leave balance will be 60.00 hours (7.50 working days) on 2023-12-01
+accrued 56.00 hours (7.00 working days) and used 64.00 hours (8.00 working days)
+your leave balance will be 12.00 hours (1.50 working days) on 2023-08-30
 ```
 
 The configuration file looks like this:

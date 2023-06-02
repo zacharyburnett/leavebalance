@@ -23,16 +23,13 @@ pub fn balance_on(
         if policy.working_days.contains(&future_date.weekday()) {
             if future_date >= next_pay_day {
                 let accrued = policy.hours_accrued_per_pay_period;
+                balance += accrued;
 
                 if verbose {
-                    println!(
-                        "{:} - {:.2} hours accrued; balance is now {:.2} hours",
-                        future_date, accrued, balance
-                    );
                     total_accrued += accrued;
+                    println!("{:} +{:.1}h => {:.1}h", future_date, accrued, balance);
                 }
 
-                balance += accrued;
                 next_pay_day += chrono::Duration::days(policy.days_in_pay_period as i64);
             }
 
@@ -44,16 +41,13 @@ pub fn balance_on(
                             balance -= used;
 
                             if verbose {
-                                println!(
-                                    "{:} - {:.2} hours used; balance is now {:.2} hours",
-                                    future_date, used, balance
-                                );
                                 total_used += used;
+                                println!("{:} -{:.1}h => {:.1}h", future_date, used, balance);
                             }
 
                             if balance < balance_warn_threshold as f64 {
                                 eprintln!(
-                                    "your planned leave on {:} would deplete your leave balance to {:} hours!",
+                                    "your planned leave on {:} would deplete your leave balance to {:.1}h!",
                                     leave_date, balance
                                 );
                             }
@@ -67,7 +61,7 @@ pub fn balance_on(
 
     if verbose {
         println!(
-            "accrued {:.2} hours ({:.2} working days) and used {:.2} hours ({:.2} working days)",
+            "accrued {:.1}h ({:.1} working days) and used {:.1}h ({:.1} working days)",
             total_accrued,
             total_accrued / (working_time.num_seconds() as f64 / 3600.0),
             total_used,
