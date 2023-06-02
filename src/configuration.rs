@@ -51,6 +51,26 @@ mod tests {
         assert_eq!(
             configuration.policy.working_hours,
             (
+                chrono::NaiveTime::from_hms_opt(9, 0, 0).unwrap(),
+                chrono::NaiveTime::from_hms_opt(17, 0, 0).unwrap()
+            )
+        );
+    }
+
+    #[test]
+    fn test_example_2() {
+        let path = format!(
+            "{:}/{:}",
+            env!("CARGO_MANIFEST_DIR"),
+            "examples/example_2.yaml"
+        );
+
+        let file = std::fs::File::open(path).unwrap();
+        let configuration: Configuration = serde_yaml::from_reader(file).unwrap();
+
+        assert_eq!(
+            configuration.policy.working_hours,
+            (
                 chrono::NaiveTime::from_hms_opt(8, 0, 0).unwrap(),
                 chrono::NaiveTime::from_hms_opt(16, 0, 0).unwrap()
             )
