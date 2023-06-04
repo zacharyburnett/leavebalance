@@ -1,17 +1,47 @@
+image: "rust:latest"
+
+default:
+  before_script:
+    - rustc --version 
+    - cargo --version
+
 build:
   stage: build
-  image: rust:latest
+  parallel:
+    matrix:
+      - TAG: [linux, shared-windows, shared-macos-amd64]
+  tags:
+    - $TAG
   script:
     - cargo build --release
+  artifacts:
+    paths:
+      - target/release/packetraven*
+    
+lint:
+  stage: test
+  script:
+    - rustup component add clippy
+    - cargo clippy -- -D warnings
+
+format:
+  stage: test
+  script:
+    - rustup component add rustfmt
+    - cargo fmt -- --check
+
+audit:
+  stage: test
+  script:
+    - cargo install cargo-audit
+    - cargo audit
 
 test:
   stage: test
-  image: rust:latest
   script:
     - cargo test
 
 test-slow:
   stage: test
-  image: rust:latest
   script:
     - cargo test -- --ignored
