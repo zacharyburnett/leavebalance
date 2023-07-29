@@ -9,13 +9,13 @@ Use `leavebalance on <DATE> <CONFIG_FILE> [CURRENT_LEAVE_BALANCE] [NEXT_PAY_DAY]
 leavebalance on 2023-09-04 examples/example_1.toml
 ```
 ```
-your leave balance will be 56.00 hours (7.00 working days) on 2023-09-04
+your leave balance will be 56.00 hours on 2023-09-04
 ```
 ```shell
 leavebalance on 2023-12-01 examples/example_2.toml 95.7688
 ```
 ```
-your leave balance will be 135.77 hours (16.97 working days) on 2023-12-01
+your leave balance will be 135.77 hours on 2023-12-01
 ```
 If your starting balance is too low, a warning is printed to stderr:
 
@@ -24,7 +24,7 @@ leavebalance on 2023-08-30 examples/example_2.toml 20
 ```
 ```
 your planned leave on 2023-08-10 would deplete your leave balance to -4 hours!
-your leave balance will be 12.00 hours (1.50 working days) on 2023-08-30
+your leave balance will be 12.00 hours on 2023-08-30
 ```
 You can also use `--verbose` to diagnose individual usages and accruals by date:
 ```shell
@@ -47,8 +47,8 @@ leavebalance on 2023-08-30 examples/example_2.toml 20 --verbose
 your planned leave on 2023-08-10 would deplete your leave balance to -4 hours!
 2023-08-11 - 8.00 hours accrued; balance is now -4.00 hours
 2023-08-25 - 8.00 hours accrued; balance is now 4.00 hours
-accrued 56.00 hours (7.00 working days) and used 64.00 hours (8.00 working days)
-your leave balance will be 12.00 hours (1.50 working days) on 2023-08-30
+accrued 56.00 hours and used 64.00 hours
+your leave balance will be 12.00 hours on 2023-08-30
 ```
 
 The configuration file looks like this:
@@ -113,5 +113,5 @@ paid_leave = []
 leavebalance on 2023-06-30 ./my_leave_policy.toml 10.5
 ```
 ```
-your leave balance will be 10.50 hours (1.31 working days) on 2023-06-30
+your leave balance will be 10.50 hours on 2023-06-30
 ```
