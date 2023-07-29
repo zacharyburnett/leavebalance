@@ -5,7 +5,7 @@ pub fn balance_on(
     policy: crate::configuration::LeavePolicy,
     next_pay_day: Option<chrono::NaiveDate>,
     starting_balance: Option<f64>,
-    planned_leave: Vec<(chrono::NaiveDate, chrono::NaiveDate)>,
+    leave_plans: Vec<(chrono::NaiveDate, chrono::NaiveDate)>,
     balance_warn_threshold: Option<u32>,
     verbose: bool,
 ) -> chrono::Duration {
@@ -18,40 +18,43 @@ pub fn balance_on(
     let mut total_used = 0.0;
     let mut total_accrued = 0.0;
 
-    let working_time = policy.working_hours.1 - policy.working_hours.0;
     for future_date in DateRange(today, on) {
-        if policy.working_days.contains(&future_date.weekday()) {
-            if future_date >= next_pay_day {
-                let accrued = policy.hours_accrued_per_pay_period;
-                balance += accrued;
+        for (work_day, hours) in &policy.work_week {
+            if work_day == &future_date.weekday() {
+                let working_time = hours.1 - hours.0;
 
-                if verbose {
-                    total_accrued += accrued;
-                    println!("{:} +{:.1}h => {:.1}h", future_date, accrued, balance);
+                if future_date >= next_pay_day {
+                    let accrued = policy.hours_accrued_per_pay_period;
+                    balance += accrued;
+
+                    if verbose {
+                        total_accrued += accrued;
+                        println!("{:} +{:.1}h => {:.1}h", future_date, accrued, balance);
+                    }
+
+                    next_pay_day += chrono::Duration::days(policy.days_in_pay_period as i64);
                 }
 
-                next_pay_day += chrono::Duration::days(policy.days_in_pay_period as i64);
-            }
+                for leave_plan in &leave_plans {
+                    if future_date > leave_plan.0 && future_date < leave_plan.1 {
+                        for leave_date in DateRange(leave_plan.0, leave_plan.1) {
+                            if leave_date == future_date {
+                                let used = working_time.num_seconds() as f64 / 3600.0;
+                                balance -= used;
 
-            for leave in &planned_leave {
-                if future_date > leave.0 && future_date < leave.1 {
-                    for leave_date in DateRange(leave.0, leave.1) {
-                        if leave_date == future_date {
-                            let used = working_time.num_seconds() as f64 / 3600.0;
-                            balance -= used;
+                                if verbose {
+                                    total_used += used;
+                                    println!("{:} -{:.1}h => {:.1}h", future_date, used, balance);
+                                }
 
-                            if verbose {
-                                total_used += used;
-                                println!("{:} -{:.1}h => {:.1}h", future_date, used, balance);
-                            }
-
-                            if balance < balance_warn_threshold as f64 {
-                                eprintln!(
+                                if balance < balance_warn_threshold as f64 {
+                                    eprintln!(
                                     "your planned leave on {:} would deplete your leave balance to {:.1}h!",
                                     leave_date, balance
                                 );
+                                }
+                                break;
                             }
-                            break;
                         }
                     }
                 }
@@ -60,13 +63,7 @@ pub fn balance_on(
     }
 
     if verbose {
-        println!(
-            "accrued {:.1}h ({:.1} working days) and used {:.1}h ({:.1} working days)",
-            total_accrued,
-            total_accrued / (working_time.num_seconds() as f64 / 3600.0),
-            total_used,
-            total_used / (working_time.num_seconds() as f64 / 3600.0),
-        );
+        println!("accrued {:.1}h and used {:.1}h", total_accrued, total_used,);
     }
 
     chrono::Duration::seconds((balance * 3600.0) as i64)

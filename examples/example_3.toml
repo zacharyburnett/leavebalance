@@ -1,0 +1,16 @@
+[plans]
+paid_leave = [
+   ["2023-08-04", "2023-08-11"],
+   ["2024-04-08", "2024-04-08"],
+   ["2024-04-22", "2024-04-26"],
+]
+
+[policy]
+days_in_pay_period = 14
+hours_accrued_per_pay_period = 8
+
+[policy.work_week]
+Monday = ["10:00:00", "14:00:00"]
+Wednesday = ["12:00:00", "16:00:00"]
+Thursday = ["08:00:00", "16:00:00"]
+Friday = ["08:00:00", "16:00:00"]

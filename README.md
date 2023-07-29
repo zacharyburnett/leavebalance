@@ -6,13 +6,13 @@ extrapolate future leave balances to plan usage of leave
 
 Use `leavebalance on <DATE> <CONFIG_FILE> [CURRENT_LEAVE_BALANCE] [NEXT_PAY_DAY] [BALANCE_WARN_THRESHOLD]` to calculate leave balance at some future date, using a configuration file:
 ```shell
-leavebalance on 2023-09-04 examples/example_1.yaml
+leavebalance on 2023-09-04 examples/example_1.toml
 ```
 ```
 your leave balance will be 56.00 hours (7.00 working days) on 2023-09-04
 ```
 ```shell
-leavebalance on 2023-12-01 examples/example_2.yaml 95.7688
+leavebalance on 2023-12-01 examples/example_2.toml 95.7688
 ```
 ```
 your leave balance will be 135.77 hours (16.97 working days) on 2023-12-01
@@ -20,7 +20,7 @@ your leave balance will be 135.77 hours (16.97 working days) on 2023-12-01
 If your starting balance is too low, a warning is printed to stderr:
 
 ```shell
-leavebalance on 2023-08-30 examples/example_2.yaml 20
+leavebalance on 2023-08-30 examples/example_2.toml 20
 ```
 ```
 your planned leave on 2023-08-10 would deplete your leave balance to -4 hours!
@@ -28,7 +28,7 @@ your leave balance will be 12.00 hours (1.50 working days) on 2023-08-30
 ```
 You can also use `--verbose` to diagnose individual usages and accruals by date:
 ```shell
-leavebalance on 2023-08-30 examples/example_2.yaml 20 --verbose
+leavebalance on 2023-08-30 examples/example_2.toml 20 --verbose
 ```
 ```
 2023-06-02 - 8.00 hours accrued; balance is now 20.00 hours
@@ -52,43 +52,65 @@ your leave balance will be 12.00 hours (1.50 working days) on 2023-08-30
 ```
 
 The configuration file looks like this:
-```yaml
-policy:
-  working_hours: [08:00:00, 16:00:00]
-  working_days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
-  days_in_pay_period: 14
-  hours_accrued_per_pay_period: 8
+```toml
+[policy]
+days_in_pay_period = 14
+hours_accrued_per_pay_period = 8
 
-planned_leave:
-    - [2023-06-09, 2023-06-09]
-    - [2023-06-27, 2023-07-04]
-    - [2023-08-04, 2023-08-11]
-    - [2023-11-30, 2023-12-04]
-    - [2024-04-08, 2024-04-08]
-    - [2024-04-22, 2024-04-26]
+[policy.work_week]
+Monday = ["08:00:00", "16:00:00"]
+Tuesday = ["08:00:00", "16:00:00"]
+Wednesday = ["08:00:00", "16:00:00"]
+Thursday = ["08:00:00", "16:00:00"]
+Friday = ["08:00:00", "16:00:00"]
+
+[plans]
+paid_leave = [
+   ["2023-06-09", "2023-06-09"],
+   ["2023-06-27", "2023-07-04"],
+   ["2023-08-04", "2023-08-11"],
+   ["2023-11-30", "2023-12-04"],
+   ["2024-04-08", "2024-04-08"],
+   ["2024-04-22", "2024-04-26"],
+]
 ```
 
 You can also quickly generate a default configuration file with `leavebalance config <FILENAME> <HOURS_ACCRUED_PER_PAY_PERIOD>`:
 ```shell
-leavebalance config ./myconfig.yaml
+leavebalance config ./my_leave_policy.toml
 ```
-```yaml
-policy:
-  working_hours:
-  - 09:00:00
-  - 17:00:00
-  working_days:
-  - Mon
-  - Tue
-  - Wed
-  - Thu
-  - Fri
-  days_in_pay_period: 14
-  hours_accrued_per_pay_period: 0.0
-planned_leave: []
+```toml
+[policy]
+days_in_pay_period = 14
+hours_accrued_per_pay_period = 0.0
+
+[policy.work_week]
+Mon = [
+    "09:00:00",
+    "17:00:00",
+]
+Tue = [
+    "09:00:00",
+    "17:00:00",
+]
+Wed = [
+    "09:00:00",
+    "17:00:00",
+]
+Fri = [
+    "09:00:00",
+    "17:00:00",
+]
+Thu = [
+    "09:00:00",
+    "17:00:00",
+]
+
+[plans]
+paid_leave = []
 ```
 ```shell
-leavebalance on 2023-06-30 ./myconfig.yaml 10.5
+leavebalance on 2023-06-30 ./my_leave_policy.toml 10.5
 ```
 ```
 your leave balance will be 10.50 hours (1.31 working days) on 2023-06-30

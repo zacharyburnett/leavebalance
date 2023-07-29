@@ -1,0 +1,12 @@
+leave_plans = []
+
+[policy]
+days_in_pay_period = 14
+hours_accrued_per_pay_period = 8.0
+
+[policy.work_week]
+Mon = ["09:00:00", "17:00:00"]
+Tue = ["09:00:00", "17:00:00"]
+Wed = ["09:00:00", "17:00:00"]
+Thu = ["09:00:00", "17:00:00"]
+Fri = ["09:00:00", "17:00:00"]

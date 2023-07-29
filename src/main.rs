@@ -44,40 +44,30 @@ fn main() {
             balance_warn_threshold,
             verbose,
         } => {
-            let file = std::fs::File::open(configuration).unwrap();
-            let configuration: configuration::Configuration =
-                serde_yaml::from_reader(file).unwrap();
-
-            let working_time =
-                configuration.policy.working_hours.1 - configuration.policy.working_hours.0;
+            let contents = std::fs::read_to_string(configuration).unwrap();
+            let configuration: configuration::Configuration = toml::from_str(&contents).unwrap();
 
             let balance = balance::balance_on(
                 on,
                 configuration.policy,
                 next_pay_day,
                 current_leave_balance,
-                configuration.planned_leave,
+                configuration.plans.paid_leave,
                 balance_warn_threshold,
                 verbose,
             );
 
             println!(
-                "your leave balance will be {:.1}h ({:.1} working days) on {:}",
+                "your leave balance will be {:.1}h on {:}",
                 balance.num_seconds() as f64 / 3600.0,
-                balance.num_seconds() as f64 / working_time.num_seconds() as f64,
                 on,
             );
         }
         Command::Config { filename } => {
             let configuration = configuration::Configuration::default();
 
-            let file = std::fs::File::create(filename).unwrap();
-            match serde_yaml::to_writer(file, &configuration) {
-                Ok(_) => {}
-                Err(error) => {
-                    panic!("{:}", error);
-                }
-            }
+            let contents = toml::to_string_pretty(&configuration).unwrap();
+            std::fs::write(filename, contents.as_bytes()).unwrap();
         }
     }
 }
