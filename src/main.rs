@@ -12,22 +12,24 @@ struct Cli {
 
 #[derive(clap::Subcommand)]
 enum Command {
+    /// calculate leave balance on a future date
     On {
-        // future date to calculate leave for
+        /// future date to calculate leave for
         date: chrono::NaiveDate,
-        // path to configuration file (create one with ```leavebalance config`)
+        /// file path to configuration
         config_file: std::path::PathBuf,
-        // current leave balance in hours
+        /// current leave balance in hours
         current_leave_balance: Option<f64>,
-        // next pay day
+        /// next pay day in YYYY-MM-DD format
         next_pay_day: Option<chrono::NaiveDate>,
-        // balance threshold under which to warn
+        /// balance threshold under which to warn
         balance_warn_threshold: Option<u32>,
         #[clap(short, long)]
         verbose: bool,
     },
-    Config {
-        // path to configuration file to write
+    /// write an empty configuration file
+    Write {
+        /// file path
         filename: std::path::PathBuf,
     },
 }
@@ -59,7 +61,7 @@ fn main() {
 
             println!("{:.1}", balance.num_seconds() as f64 / 3600.0);
         }
-        Command::Config { filename } => {
+        Command::Write { filename } => {
             let configuration = configuration::Configuration::default();
 
             let contents = toml::to_string_pretty(&configuration).unwrap();
