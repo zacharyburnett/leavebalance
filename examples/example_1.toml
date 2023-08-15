@@ -1,4 +1,5 @@
-leave_plans = []
+[plans]
+paid_leave = []
 
 [policy]
 days_in_pay_period = 14

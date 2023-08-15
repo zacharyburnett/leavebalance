@@ -80,6 +80,9 @@ You can also quickly generate a default configuration file with `leavebalance co
 leavebalance config ./my_leave_policy.toml
 ```
 ```toml
+[plans]
+paid_leave = []
+
 [policy]
 days_in_pay_period = 14
 hours_accrued_per_pay_period = 0.0
@@ -105,9 +108,6 @@ Thu = [
     "09:00:00",
     "17:00:00",
 ]
-
-[plans]
-paid_leave = []
 ```
 ```shell
 leavebalance on 2023-06-30 ./my_leave_policy.toml 10.5
