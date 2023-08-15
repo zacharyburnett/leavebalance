@@ -53,6 +53,16 @@ accrued 56.00 hours and used 64.00 hours
 
 The configuration file looks like this:
 ```toml
+[plans]
+paid_leave = [
+   ["2023-06-09", "2023-06-09"],
+   ["2023-06-27", "2023-07-04"],
+   ["2023-08-04", "2023-08-11"],
+   ["2023-11-30", "2023-12-04"],
+   ["2024-04-08", "2024-04-08"],
+   ["2024-04-22", "2024-04-26"],
+]
+
 [policy]
 days_in_pay_period = 14
 hours_accrued_per_pay_period = 8
@@ -63,16 +73,6 @@ Tuesday = ["08:00:00", "16:00:00"]
 Wednesday = ["08:00:00", "16:00:00"]
 Thursday = ["08:00:00", "16:00:00"]
 Friday = ["08:00:00", "16:00:00"]
-
-[plans]
-paid_leave = [
-   ["2023-06-09", "2023-06-09"],
-   ["2023-06-27", "2023-07-04"],
-   ["2023-08-04", "2023-08-11"],
-   ["2023-11-30", "2023-12-04"],
-   ["2024-04-08", "2024-04-08"],
-   ["2024-04-22", "2024-04-26"],
-]
 ```
 
 You can also quickly generate a default configuration file with `leavebalance config <FILENAME> <HOURS_ACCRUED_PER_PAY_PERIOD>`:
