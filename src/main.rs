@@ -57,11 +57,7 @@ fn main() {
                 verbose,
             );
 
-            println!(
-                "your leave balance will be {:.1}h on {:}",
-                balance.num_seconds() as f64 / 3600.0,
-                on,
-            );
+            println!("{:.1}", balance.num_seconds() as f64 / 3600.0);
         }
         Command::Config { filename } => {
             let configuration = configuration::Configuration::default();
