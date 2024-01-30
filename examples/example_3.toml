@@ -1,5 +1,5 @@
-[plans]
-paid_leave = [
+[plans.paid]
+leave = [
    ["2023-08-04", "2023-08-11"],
    ["2024-04-08", "2024-04-08"],
    ["2024-04-22", "2024-04-26"],
@@ -8,6 +8,11 @@ paid_leave = [
 [policy]
 days_in_pay_period = 14
 hours_accrued_per_pay_period = 8
+country = "US"
+paid_holidays = [
+   "Thanksgiving",
+   "Christmas Day",
+]
 
 [policy.work_week]
 Monday = ["10:00:00", "14:00:00"]
