@@ -4,6 +4,7 @@ leave = []
 [policy]
 days_in_pay_period = 14
 hours_accrued_per_pay_period = 8.0
+country = "US"
 paid_holidays = []
 
 [policy.work_week]

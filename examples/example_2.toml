@@ -11,23 +11,16 @@ leave = [
 [policy]
 days_in_pay_period = 14
 hours_accrued_per_pay_period = 8
+country = "US"
 paid_holidays = [
-   "2023-01-02",
-   "2023-01-16",
-   "2023-05-29",
-   "2023-06-19",
-   "2023-07-04",
-   "2023-09-04",
-   "2023-11-23",
-   "2023-12-25",
-   "2024-01-01",
-   "2024-01-15",
-   "2024-05-27",
-   "2024-06-19",
-   "2024-07-04",
-   "2024-09-02",
-   "2024-11-28",
-   "2024-12-25",
+   "New Year's Day",
+   "Martin Luther King Jr. Day",
+   "Memorial Day",
+   "Juneteenth",
+   "Independence Day",
+   "Labor Day",
+   "Thanksgiving",
+   "Christmas Day",
 ]
 
 [policy.work_week]

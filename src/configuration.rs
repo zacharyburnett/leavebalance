@@ -1,5 +1,3 @@
-use chrono::NaiveDate;
-
 use std::collections::HashMap;
 
 #[derive(serde::Deserialize, serde::Serialize, Default)]
@@ -14,7 +12,8 @@ pub struct LeavePolicy {
     pub work_week: HashMap<chrono::Weekday, (chrono::NaiveTime, chrono::NaiveTime)>,
     pub days_in_pay_period: u32,
     pub hours_accrued_per_pay_period: f64,
-    pub paid_holidays: Vec<NaiveDate>,
+    pub country: String,
+    pub paid_holidays: Vec<String>,
 }
 
 #[derive(serde::Deserialize, serde::Serialize, Default)]
@@ -70,6 +69,7 @@ impl Default for LeavePolicy {
             work_week,
             days_in_pay_period: 14,
             hours_accrued_per_pay_period: 0.0,
+            country: String::from("US"),
             paid_holidays: vec![],
         }
     }

@@ -8,11 +8,10 @@ leave = [
 [policy]
 days_in_pay_period = 14
 hours_accrued_per_pay_period = 8
+country = "US"
 paid_holidays = [
-   "2023-11-23",
-   "2023-12-25",
-   "2024-11-28",
-   "2024-12-25",
+   "Thanksgiving",
+   "Christmas Day",
 ]
 
 [policy.work_week]

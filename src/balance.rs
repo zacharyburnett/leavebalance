@@ -1,10 +1,13 @@
 use chrono::Datelike;
 
+use crate::util::{country_from_code, paid_holidays_from_names};
+
 pub fn balance_on(
     on: chrono::NaiveDate,
     policy: crate::configuration::LeavePolicy,
-    next_pay_day: Option<chrono::NaiveDate>,
     starting_balance: Option<f64>,
+    from: Option<chrono::NaiveDate>,
+    next_pay_day: Option<chrono::NaiveDate>,
     planned_paid_leave: Vec<(chrono::NaiveDate, chrono::NaiveDate)>,
     balance_warn_threshold: Option<u32>,
     verbose: bool,
@@ -12,16 +15,26 @@ pub fn balance_on(
     let mut balance = starting_balance.unwrap_or(0.0);
     let balance_warn_threshold = balance_warn_threshold.unwrap_or(0);
 
-    let today = chrono::Local::now().date_naive();
-    let mut next_pay_day = next_pay_day.unwrap_or(today);
+    let from = match from {
+        Some(date) => date,
+        None => chrono::Local::now().date_naive(),
+    };
+    let mut next_pay_day = next_pay_day.unwrap_or(from);
 
     let mut total_used = 0.0;
     let mut total_accrued = 0.0;
 
-    for future_date in DateRange(today, on) {
+    let paid_holidays = paid_holidays_from_names(
+        policy.paid_holidays,
+        country_from_code(policy.country).unwrap(),
+        on.year(),
+    )
+    .unwrap();
+
+    for future_date in DateRange(from, on) {
         // check if holiday
-        for holiday in &policy.paid_holidays {
-            if &future_date == holiday {
+        for holiday in &paid_holidays {
+            if &future_date == &holiday.date {
                 break;
             }
         }
