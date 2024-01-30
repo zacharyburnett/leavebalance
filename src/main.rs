@@ -54,7 +54,7 @@ fn main() {
                 configuration.policy,
                 next_pay_day,
                 current_leave_balance,
-                configuration.plans.paid_leave,
+                configuration.plans.paid.leave,
                 balance_warn_threshold,
                 verbose,
             );

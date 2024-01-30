@@ -5,7 +5,7 @@ pub fn balance_on(
     policy: crate::configuration::LeavePolicy,
     next_pay_day: Option<chrono::NaiveDate>,
     starting_balance: Option<f64>,
-    leave_plans: Vec<(chrono::NaiveDate, chrono::NaiveDate)>,
+    planned_paid_leave: Vec<(chrono::NaiveDate, chrono::NaiveDate)>,
     balance_warn_threshold: Option<u32>,
     verbose: bool,
 ) -> chrono::Duration {
@@ -19,6 +19,13 @@ pub fn balance_on(
     let mut total_accrued = 0.0;
 
     for future_date in DateRange(today, on) {
+        // check if holiday
+        for holiday in &policy.paid_holidays {
+            if &future_date == holiday {
+                break;
+            }
+        }
+
         for (work_day, hours) in &policy.work_week {
             if work_day == &future_date.weekday() {
                 let working_time = hours.1 - hours.0;
@@ -35,9 +42,9 @@ pub fn balance_on(
                     next_pay_day += chrono::Duration::days(policy.days_in_pay_period as i64);
                 }
 
-                for leave_plan in &leave_plans {
-                    if future_date > leave_plan.0 && future_date < leave_plan.1 {
-                        for leave_date in DateRange(leave_plan.0, leave_plan.1) {
+                for planned_paid_leave in &planned_paid_leave {
+                    if future_date > planned_paid_leave.0 && future_date < planned_paid_leave.1 {
+                        for leave_date in DateRange(planned_paid_leave.0, planned_paid_leave.1) {
                             if leave_date == future_date {
                                 let used = working_time.num_seconds() as f64 / 3600.0;
                                 balance -= used;
