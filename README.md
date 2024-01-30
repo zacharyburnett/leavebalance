@@ -4,7 +4,7 @@ extrapolate future leave balances to plan usage of leave
 
 ## Usage
 
-Use `leavebalance on <DATE> <CONFIG_FILE> [CURRENT_LEAVE_BALANCE] [NEXT_PAY_DAY] [BALANCE_WARN_THRESHOLD]` to calculate leave balance at some future date, using a configuration file:
+Use `leavebalance on [OPTIONS] <DATE> <CONFIG_FILE>` to calculate leave balance at some future date, using a configuration file:
 ```shell
 leavebalance on 2023-09-04 examples/example_1.toml --from 2023-06-04 --next-pay-day 2023-06-09
 ```
