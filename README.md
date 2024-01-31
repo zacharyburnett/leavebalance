@@ -2,17 +2,22 @@
 
 extrapolate future leave balances to plan usage of leave
 
+## Installation
+
+Download an executable for your OS [from the Assets section of the latest releases on the Releases page](https://github.com/zacharyburnett/leavebalance/releases).
+`leavebalance` is a command-line program, and must be run from the terminal.
+
 ## Usage
 
 Use `leavebalance on [OPTIONS] <DATE> <CONFIG_FILE>` to calculate leave balance at some future date, using a configuration file:
 ```shell
-leavebalance on 2023-09-04 examples/example_1.toml --from 2023-06-04 --next-pay-day 2023-06-09
+leavebalance.exe on 2023-09-04 examples/example_1.toml --from 2023-06-04 --next-pay-day 2023-06-09
 ```
 ```
 56.00
 ```
 ```shell
-leavebalance on 2023-12-01 examples/example_2.toml --balance 95.7688 --from 2023-06-04 --next-pay-day 2023-06-09
+leavebalance.exe on 2023-12-01 examples/example_2.toml --balance 95.7688 --from 2023-06-04 --next-pay-day 2023-06-09
 ```
 ```
 127.8
@@ -20,7 +25,7 @@ leavebalance on 2023-12-01 examples/example_2.toml --balance 95.7688 --from 2023
 If your starting balance is too low, a warning is printed to stderr:
 
 ```shell
-leavebalance on 2023-08-30 examples/example_2.toml --balance 20 --from 2023-06-04 --next-pay-day 2023-06-09
+leavebalance.exe on 2023-08-30 examples/example_2.toml --balance 20 --from 2023-06-04 --next-pay-day 2023-06-09
 ```
 ```
 your planned leave on 2023-08-10 would deplete your leave balance to -4.0h!
@@ -28,7 +33,7 @@ your planned leave on 2023-08-10 would deplete your leave balance to -4.0h!
 ```
 You can also use `--verbose` to diagnose individual usages and accruals by date:
 ```shell
-leavebalance on 2023-08-30 examples/example_2.toml --balance 20 --from 2023-06-01 --next-pay-day 2023-06-02 --verbose
+leavebalance.exe on 2023-08-30 examples/example_2.toml --balance 20 --from 2023-06-01 --next-pay-day 2023-06-02 --verbose
 ```
 ```
 2023-06-02 +8.0h => 28.0h
@@ -88,7 +93,7 @@ Friday = ["08:00:00", "16:00:00"]
 
 You can also quickly generate a default configuration file with `leavebalance config <FILENAME> <HOURS_ACCRUED_PER_PAY_PERIOD>`:
 ```shell
-leavebalance write ./my_leave_policy.toml
+leavebalance.exe write my_leave_policy.toml
 ```
 ```toml
 [policy]
@@ -123,7 +128,7 @@ Thu = [
 leave = []
 ```
 ```shell
-leavebalance on 2023-06-30 ./my_leave_policy.toml --balance 10.5 --from 2023-06-01
+leavebalance.exe on 2023-06-30 my_leave_policy.toml --balance 10.5 --from 2023-06-01
 ```
 ```
 10.50
