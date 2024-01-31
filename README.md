@@ -95,7 +95,7 @@ leavebalance on 2023-12-01 examples/example_2.toml --balance 95.7688 --from 2023
 > ```
 
 > [!TIP]
-> You can quickly generate a default configuration file with `leavebalance config <FILENAME> <HOURS_ACCRUED_PER_PAY_PERIOD>`:
+> You can quickly generate a default configuration file with `leavebalance write <FILENAME>`:
 > ```shell
 > leavebalance.exe write my_leave_policy.toml
 > ```
