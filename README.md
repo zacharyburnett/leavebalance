@@ -43,10 +43,11 @@ leave = [
 
 3. Open a Terminal window
 
-4. Run the executable with the `on` command (`leavebalance on [OPTIONS] <DATE> <CONFIG_FILE>`) to calculate your leave balance on some future date:
+4. Run the executable with the `on` command (`leavebalance on [OPTIONS] <DATE> <CONFIG_FILE>`) to calculate your leave balance on some future date. Include the `--from` and `--next-pay-day` arguments to define start dates (both default to the current date):
 ```shell
 leavebalance on 2023-09-04 examples/example_1.toml --from 2023-06-04 --next-pay-day 2023-06-09
 ```
+Include the `--balance` argument to input a current (or starting) leave balance:
 ```
 56.00
 ```
