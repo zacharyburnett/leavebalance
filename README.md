@@ -47,18 +47,20 @@ leave = [
 ```shell
 leavebalance on 2023-09-04 examples/example_1.toml --from 2023-06-04 --next-pay-day 2023-06-09
 ```
-Include the `--balance` argument to input a current (or starting) leave balance:
 ```
 56.00
 ```
-```shell
-leavebalance on 2023-12-01 examples/example_2.toml --balance 95.7688 --from 2023-06-04 --next-pay-day 2023-06-09
-```
-```
-127.8
-```
 
-> [!NOTE]
+> [!TIP]
+> Include the `--balance` argument to input a current (or starting) leave balance:
+> ```shell
+> leavebalance on 2023-12-01 examples/example_2.toml --balance 95.7688 --from 2023-06-04 --next-pay-day 2023-06-09
+> ```
+> ```
+> 127.8
+> ```
+
+> [!WARNING]
 > If your starting balance is too low, a warning is printed to stderr:
 > ```shell
 > leavebalance.exe on 2023-08-30 examples/example_2.toml --balance 20 --from 2023-06-04 --next-pay-day 2023-06-09
@@ -96,7 +98,7 @@ leavebalance on 2023-12-01 examples/example_2.toml --balance 95.7688 --from 2023
 > ```
 
 > [!TIP]
-> You can quickly generate a default configuration file with `leavebalance write <FILENAME>`:
+> You can quickly generate an empty configuration file with default values with `leavebalance write <FILENAME>`:
 > ```shell
 > leavebalance.exe write my_leave_policy.toml
 > ```
